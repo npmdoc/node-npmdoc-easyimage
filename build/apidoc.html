@@ -1,0 +1,742 @@
+<div class="apidocDiv">
+<style>
+/*csslint
+*/
+.apidocDiv {
+    background: #fff;
+    font-family: Arial, Helvetica, sans-serif;
+}
+.apidocDiv a[href] {
+    color: #33f;
+    font-weight: bold;
+    text-decoration: none;
+}
+.apidocDiv a[href]:hover {
+    text-decoration: underline;
+}
+.apidocCodeCommentSpan {
+    background: #bbf;
+    color: #000;
+    display: block;
+}
+.apidocCodeKeywordSpan {
+    color: #d00;
+    font-weight: bold;
+}
+.apidocCodePre {
+    background: #eef;
+    border: 1px solid;
+    color: #777;
+    padding: 5px;
+    white-space: pre-wrap;
+}
+.apidocFooterDiv {
+    margin-top: 20px;
+    text-align: center;
+}
+.apidocModuleLi {
+    margin-top: 10px;
+}
+.apidocSectionDiv {
+    border-top: 1px solid;
+    margin-top: 20px;
+}
+.apidocSignatureSpan {
+    color: #777;
+    font-weight: bold;
+}
+</style>
+<h1>api documentation for
+    <a
+
+        href="https://github.com/hacksparrow/node-easyimage"
+
+    >easyimage (v2.1.0)</a>
+</h1>
+<h4>A promise-based, user-friendly module for processing images in Node.js</h4>
+<div class="apidocSectionDiv"><a
+    href="#apidoc.tableOfContents"
+    id="apidoc.tableOfContents"
+><h1>table of contents</h1></a><ol>
+
+    <li class="apidocModuleLi"><a href="#apidoc.module.easyimage">module easyimage</a><ol>
+
+        <li>
+
+            <a class="apidocElementLiA" href="#apidoc.element.easyimage.convert">
+            function <span class="apidocSignatureSpan">easyimage.</span>convert
+            <span class="apidocSignatureSpan">(options)</span>
+            </a>
+
+        </li>
+
+        <li>
+
+            <a class="apidocElementLiA" href="#apidoc.element.easyimage.crop">
+            function <span class="apidocSignatureSpan">easyimage.</span>crop
+            <span class="apidocSignatureSpan">(options)</span>
+            </a>
+
+        </li>
+
+        <li>
+
+            <a class="apidocElementLiA" href="#apidoc.element.easyimage.exec">
+            function <span class="apidocSignatureSpan">easyimage.</span>exec
+            <span class="apidocSignatureSpan">(cmd)</span>
+            </a>
+
+        </li>
+
+        <li>
+
+            <a class="apidocElementLiA" href="#apidoc.element.easyimage.info">
+            function <span class="apidocSignatureSpan">easyimage.</span>info
+            <span class="apidocSignatureSpan">(file)</span>
+            </a>
+
+        </li>
+
+        <li>
+
+            <a class="apidocElementLiA" href="#apidoc.element.easyimage.rescrop">
+            function <span class="apidocSignatureSpan">easyimage.</span>rescrop
+            <span class="apidocSignatureSpan">(options)</span>
+            </a>
+
+        </li>
+
+        <li>
+
+            <a class="apidocElementLiA" href="#apidoc.element.easyimage.resize">
+            function <span class="apidocSignatureSpan">easyimage.</span>resize
+            <span class="apidocSignatureSpan">(options)</span>
+            </a>
+
+        </li>
+
+        <li>
+
+            <a class="apidocElementLiA" href="#apidoc.element.easyimage.rotate">
+            function <span class="apidocSignatureSpan">easyimage.</span>rotate
+            <span class="apidocSignatureSpan">(options)</span>
+            </a>
+
+        </li>
+
+        <li>
+
+            <a class="apidocElementLiA" href="#apidoc.element.easyimage.thumbnail">
+            function <span class="apidocSignatureSpan">easyimage.</span>thumbnail
+            <span class="apidocSignatureSpan">(options)</span>
+            </a>
+
+        </li>
+
+    </ol></li>
+
+</ol></div>
+
+<div class="apidocSectionDiv">
+<h1><a href="#apidoc.module.easyimage" id="apidoc.module.easyimage">module easyimage</a></h1>
+
+
+    <h2>
+        <a href="#apidoc.element.easyimage.convert" id="apidoc.element.easyimage.convert">
+        function <span class="apidocSignatureSpan">easyimage.</span>convert
+        <span class="apidocSignatureSpan">(options)</span>
+        </a>
+    </h2>
+    <ul>
+    <li>description and source-code<pre class="apidocCodePre">convert = function (options) {
+
+	var deferred = Q.defer();
+
+	function imgConvert() {
+
+		if (options.src === undefined || options.dst === undefined) return deferred.reject(error_messages[&#x27;path&#x27;]);
+
+		var args = [options.src]
+		if (options.quality) {
+			args.push(&#x27;-quality&#x27;)
+			args.push(options.quality)
+		}
+
+		if (options.flatten) {
+			args.push(&#x27;-flatten&#x27;)
+			if (options.background) {
+				args.push(&#x27;-background&#x27;)
+				args.push(options.background)
+			}	
+		}
+		else {
+			if (options.background) {
+				args.push(&#x27;-background&#x27;)
+				args.push(options.background)
+				args.push(&#x27;-flatten&#x27;)
+			}	
+		}
+
+		args.push(options.dst)
+
+		child = exec(&#x27;convert&#x27;, args, function(err, stdout, stderr) {
+
+			if (err) deferred.reject(err);
+			else deferred.resolve(info(options.dst));
+		});
+
+	}
+
+	directoryCheck(options, imgConvert)
+
+	return deferred.promise;
+}</pre></li>
+    <li>example usage<pre class="apidocCodePre">...
+var easyimg = require(&#x27;easyimage&#x27;);
+```
+
+EasyImage offers these promise methods:
+
+```
+easyimg.info(&#x3c;image_path&#x3e;) - to retrieve information about an image. Will return an object with the following properties
+ - type, depth, width, height, size, density, name, and path.
+easyimg.<span class="apidocCodeKeywordSpan">convert</span>(&#x3c;options&#x3e;) - to convert an image from one format to another
+.
+easyimg.resize(&#x3c;options&#x3e;) - to resize an image.
+easyimg.crop(&#x3c;options&#x3e;) - to crop an image.
+easyimg.thumbnail(&#x3c;options&#x3e;) - to create square thumbnails.
+easyimg.rescrop(&#x3c;options&#x3e;) - to resize and crop and image in one go, useful for creating customzied thumbnails.
+easyimg.rotate(&#x3c;options&#x3e;) - to rotate an image.
+easyimg.exec(&#x3c;command&#x3e;) - when you want to call a custom command to ImageMagick, you will need to take care of escaping
+ special characters etc.
+```
+...</pre></li>
+    </ul>
+
+
+
+    <h2>
+        <a href="#apidoc.element.easyimage.crop" id="apidoc.element.easyimage.crop">
+        function <span class="apidocSignatureSpan">easyimage.</span>crop
+        <span class="apidocSignatureSpan">(options)</span>
+        </a>
+    </h2>
+    <ul>
+    <li>description and source-code<pre class="apidocCodePre">crop = function (options) {
+
+	var deferred = Q.defer();
+
+	function imgCrop() {
+		if (options.src === undefined || options.dst === undefined) return deferred.reject(error_messages[&#x27;path&#x27;]);
+		if (options.cropwidth === undefined) return deferred.reject(error_messages[&#x27;dim&#x27;]);
+
+		options.cropheight = options.cropheight || options.cropwidth;
+		options.gravity = options.gravity || &#x27;Center&#x27;;
+		options.x = options.x || 0;
+		options.y = options.y || 0;
+
+    var args = [options.src]
+
+		if (options.flatten) {
+			args.push(&#x27;-flatten&#x27;)
+			if (options.background) {
+				args.push(&#x27;-background&#x27;)
+				args.push(options.background)
+			}	
+		}
+		else {
+			if (options.background) {
+				args.push(&#x27;-background&#x27;)
+				args.push(options.background)
+				args.push(&#x27;-flatten&#x27;)
+			}	
+		}
+
+    args.push(&#x27;-auto-orient&#x27;)
+    args.push(&#x27;-gravity&#x27;)
+    args.push(options.gravity)
+    args.push(&#x27;-crop&#x27;)
+    args.push(options.cropwidth + &#x27;x&#x27;+ options.cropheight + &#x27;+&#x27; + options.x + &#x27;+&#x27; + options.y)
+    if (options.quality) {
+    	args.push(&#x27;-quality&#x27;)
+    	args.push(options.quality)
+    }
+ 		if (options.background) {
+			args.push(&#x27;-background&#x27;)
+			args.push(options.background)
+		}
+    args.push(options.dst)
+
+		child = exec(&#x27;convert&#x27;, args, function(err, stdout, stderr) {
+			if (err) deferred.reject(err);
+			deferred.resolve(info(options.dst));
+		});
+	}
+
+	directoryCheck(options, imgCrop)
+	return deferred.promise;
+}</pre></li>
+    <li>example usage<pre class="apidocCodePre">...
+
+EasyImage offers these promise methods:
+
+```
+easyimg.info(&#x3c;image_path&#x3e;) - to retrieve information about an image. Will return an object with the following properties
+ - type, depth, width, height, size, density, name, and path.
+easyimg.convert(&#x3c;options&#x3e;) - to convert an image from one format to another.
+easyimg.resize(&#x3c;options&#x3e;) - to resize an image.
+easyimg.<span class="apidocCodeKeywordSpan">crop</span>(&#x3c;options&#x3e;) - to crop an image.
+easyimg.thumbnail(&#x3c;options&#x3e;) - to create square thumbnails.
+easyimg.rescrop(&#x3c;options&#x3e;) - to resize and crop and image in one go, useful for creating customzied thumbnails.
+easyimg.rotate(&#x3c;options&#x3e;) - to rotate an image.
+easyimg.exec(&#x3c;command&#x3e;) - when you want to call a custom command to ImageMagick, you will need to take care of escaping
+ special characters etc.
+```
+**NOTE**: `easyimg.exec()` spawns a subshell.
+...</pre></li>
+    </ul>
+
+
+
+    <h2>
+        <a href="#apidoc.element.easyimage.exec" id="apidoc.element.easyimage.exec">
+        function <span class="apidocSignatureSpan">easyimage.</span>exec
+        <span class="apidocSignatureSpan">(cmd)</span>
+        </a>
+    </h2>
+    <ul>
+    <li>description and source-code<pre class="apidocCodePre">exec = function (cmd) {
+
+	var deferred = Q.defer();
+
+	process.nextTick(function () {
+
+		child = command(cmd, function(err, stdout, stderr) {
+			if (err) return deferred.reject(err);
+			deferred.resolve(stdout);
+		});
+
+	})
+
+	return deferred.promise;
+}</pre></li>
+    <li>example usage<pre class="apidocCodePre">...
+easyimg.info(&#x3c;image_path&#x3e;) - to retrieve information about an image. Will return an object with the following properties
+ - type, depth, width, height, size, density, name, and path.
+easyimg.convert(&#x3c;options&#x3e;) - to convert an image from one format to another.
+easyimg.resize(&#x3c;options&#x3e;) - to resize an image.
+easyimg.crop(&#x3c;options&#x3e;) - to crop an image.
+easyimg.thumbnail(&#x3c;options&#x3e;) - to create square thumbnails.
+easyimg.rescrop(&#x3c;options&#x3e;) - to resize and crop and image in one go, useful for creating customzied thumbnails.
+easyimg.rotate(&#x3c;options&#x3e;) - to rotate an image.
+easyimg.<span class="apidocCodeKeywordSpan">exec</span>(&#x3c;command&#x3e;) - when you want to call a custom command to ImageMagick
+, you will need to take care of escaping special characters etc.
+```
+**NOTE**: `easyimg.exec()` spawns a subshell.
+
+The EasyImage options object can have these properties depending on the method. Unrelated options are ignored.
+
+```
+src - path to source image.
+...</pre></li>
+    </ul>
+
+
+
+    <h2>
+        <a href="#apidoc.element.easyimage.info" id="apidoc.element.easyimage.info">
+        function <span class="apidocSignatureSpan">easyimage.</span>info
+        <span class="apidocSignatureSpan">(file)</span>
+        </a>
+    </h2>
+    <ul>
+    <li>description and source-code<pre class="apidocCodePre">info = function (file) {
+	return info(file);
+}</pre></li>
+    <li>example usage<pre class="apidocCodePre">...
+```
+var easyimg = require(&#x27;easyimage&#x27;);
+```
+
+EasyImage offers these promise methods:
+
+```
+easyimg.<span class="apidocCodeKeywordSpan">info</span>(&#x3c;image_path&#x3e;) - to retrieve information about an image. Will return
+ an object with the following properties - type, depth, width, height, size, density, name, and path.
+easyimg.convert(&#x3c;options&#x3e;) - to convert an image from one format to another.
+easyimg.resize(&#x3c;options&#x3e;) - to resize an image.
+easyimg.crop(&#x3c;options&#x3e;) - to crop an image.
+easyimg.thumbnail(&#x3c;options&#x3e;) - to create square thumbnails.
+easyimg.rescrop(&#x3c;options&#x3e;) - to resize and crop and image in one go, useful for creating customzied thumbnails.
+easyimg.rotate(&#x3c;options&#x3e;) - to rotate an image.
+easyimg.exec(&#x3c;command&#x3e;) - when you want to call a custom command to ImageMagick, you will need to take care of escaping
+ special characters etc.
+...</pre></li>
+    </ul>
+
+
+
+    <h2>
+        <a href="#apidoc.element.easyimage.rescrop" id="apidoc.element.easyimage.rescrop">
+        function <span class="apidocSignatureSpan">easyimage.</span>rescrop
+        <span class="apidocSignatureSpan">(options)</span>
+        </a>
+    </h2>
+    <ul>
+    <li>description and source-code<pre class="apidocCodePre">rescrop = function (options) {
+
+	var deferred = Q.defer();
+
+	function imgResCrop() {
+
+		if (options.src === undefined || options.dst === undefined) return deferred.reject(error_messages[&#x27;path&#x27;]);
+		if (options.width === undefined) return deferred.reject(error_messages[&#x27;dim&#x27;]);
+
+		options.height = options.height || options.width;
+
+		options.cropwidth = options.cropwidth || options.width;
+		options.cropheight = options.cropheight || options.height;
+
+		options.gravity = options.gravity || &#x27;Center&#x27;;
+		options.x = options.x || 0;
+		options.y = options.y || 0;
+		options.fill = options.fill ? &#x27;^&#x27; : &#x27;&#x27;;
+
+    var args = [options.src]
+
+		if (options.flatten) {
+			args.push(&#x27;-flatten&#x27;)
+			if (options.background) {
+				args.push(&#x27;-background&#x27;)
+				args.push(options.background)
+			}	
+		}
+		else {
+			if (options.background) {
+				args.push(&#x27;-background&#x27;)
+				args.push(options.background)
+				args.push(&#x27;-flatten&#x27;)
+			}	
+		}
+
+    args.push(&#x27;-auto-orient&#x27;)
+    args.push(&#x27;-gravity&#x27;)
+    args.push(options.gravity)
+    args.push(&#x27;-resize&#x27;)
+    args.push(options.width + &#x27;x&#x27; + options.height + options.fill)
+    args.push(&#x27;-crop&#x27;)
+    args.push(options.cropwidth + &#x27;x&#x27;+ options.cropheight + &#x27;+&#x27; + options.x + &#x27;+&#x27; + options.y)
+    if (options.quality) {
+    	args.push(&#x27;-quality&#x27;)
+    	args.push(options.quality)
+    }
+ 		if (options.background) {
+			args.push(&#x27;-background&#x27;)
+			args.push(options.background)
+		}
+    args.push(options.dst)
+
+		child = exec(&#x27;convert&#x27;, args, function(err, stdout, stderr) {
+			if (err) deferred.reject(err);
+			deferred.resolve(info(options.dst));
+		});
+
+	}
+
+	directoryCheck(options, imgResCrop)
+	return deferred.promise;
+}</pre></li>
+    <li>example usage<pre class="apidocCodePre">...
+
+```
+easyimg.info(&#x3c;image_path&#x3e;) - to retrieve information about an image. Will return an object with the following properties
+ - type, depth, width, height, size, density, name, and path.
+easyimg.convert(&#x3c;options&#x3e;) - to convert an image from one format to another.
+easyimg.resize(&#x3c;options&#x3e;) - to resize an image.
+easyimg.crop(&#x3c;options&#x3e;) - to crop an image.
+easyimg.thumbnail(&#x3c;options&#x3e;) - to create square thumbnails.
+easyimg.<span class="apidocCodeKeywordSpan">rescrop</span>(&#x3c;options&#x3e;) - to resize and crop and image in one go, useful
+ for creating customzied thumbnails.
+easyimg.rotate(&#x3c;options&#x3e;) - to rotate an image.
+easyimg.exec(&#x3c;command&#x3e;) - when you want to call a custom command to ImageMagick, you will need to take care of escaping
+ special characters etc.
+```
+**NOTE**: `easyimg.exec()` spawns a subshell.
+
+The EasyImage options object can have these properties depending on the method. Unrelated options are ignored.
+...</pre></li>
+    </ul>
+
+
+
+    <h2>
+        <a href="#apidoc.element.easyimage.resize" id="apidoc.element.easyimage.resize">
+        function <span class="apidocSignatureSpan">easyimage.</span>resize
+        <span class="apidocSignatureSpan">(options)</span>
+        </a>
+    </h2>
+    <ul>
+    <li>description and source-code<pre class="apidocCodePre">resize = function (options) {
+
+	var deferred = Q.defer();
+
+	function imgResize() {
+
+		if (options.src === undefined || options.dst === undefined) return deferred.reject(error_messages[&#x27;path&#x27;]);
+		if (options.width === undefined) return deferred.reject(error_messages[&#x27;dim&#x27;]);
+
+		options.height = options.height || options.width;
+
+    var args = [options.src]
+
+		if (options.flatten) {
+			args.push(&#x27;-flatten&#x27;)
+			if (options.background) {
+				args.push(&#x27;-background&#x27;)
+				args.push(options.background)
+			}	
+		}
+		else {
+			if (options.background) {
+				args.push(&#x27;-background&#x27;)
+				args.push(options.background)
+				args.push(&#x27;-flatten&#x27;)
+			}	
+		}
+
+    args.push(&#x27;-auto-orient&#x27;)
+    args.push(&#x27;-resize&#x27;)
+    args.push(options.width + &#x27;x&#x27; + options.height)
+    if (options.ignoreAspectRatio) {
+      args[args.length-1] += &#x27;!&#x27;;
+    }
+    if (options.quality) {
+    	args.push(&#x27;-quality&#x27;)
+    	args.push(options.quality)
+    }
+ 		if (options.background) {
+			args.push(&#x27;-background&#x27;)
+			args.push(options.background)
+		}
+    args.push(options.dst)
+
+		child = exec(&#x27;convert&#x27;, args, function(err, stdout, stderr) {
+			if (err) deferred.reject(err);
+			deferred.resolve(info(options.dst));
+		});
+
+	}
+
+	directoryCheck(options, imgResize)
+	return deferred.promise;
+}</pre></li>
+    <li>example usage<pre class="apidocCodePre">...
+```
+
+EasyImage offers these promise methods:
+
+```
+easyimg.info(&#x3c;image_path&#x3e;) - to retrieve information about an image. Will return an object with the following properties
+ - type, depth, width, height, size, density, name, and path.
+easyimg.convert(&#x3c;options&#x3e;) - to convert an image from one format to another.
+easyimg.<span class="apidocCodeKeywordSpan">resize</span>(&#x3c;options&#x3e;) - to resize an image.
+easyimg.crop(&#x3c;options&#x3e;) - to crop an image.
+easyimg.thumbnail(&#x3c;options&#x3e;) - to create square thumbnails.
+easyimg.rescrop(&#x3c;options&#x3e;) - to resize and crop and image in one go, useful for creating customzied thumbnails.
+easyimg.rotate(&#x3c;options&#x3e;) - to rotate an image.
+easyimg.exec(&#x3c;command&#x3e;) - when you want to call a custom command to ImageMagick, you will need to take care of escaping
+ special characters etc.
+```
+**NOTE**: `easyimg.exec()` spawns a subshell.
+...</pre></li>
+    </ul>
+
+
+
+    <h2>
+        <a href="#apidoc.element.easyimage.rotate" id="apidoc.element.easyimage.rotate">
+        function <span class="apidocSignatureSpan">easyimage.</span>rotate
+        <span class="apidocSignatureSpan">(options)</span>
+        </a>
+    </h2>
+    <ul>
+    <li>description and source-code<pre class="apidocCodePre">rotate = function (options) {
+
+	var deferred = Q.defer();
+
+	function imgRotate() {
+
+		if (options.src === undefined || options.dst === undefined || options.degree === undefined) return deferred.reject(error_messages
+[&#x27;path&#x27;]);
+
+		var args = [options.src]
+
+		if (options.flatten) {
+			args.push(&#x27;-flatten&#x27;)
+			if (options.background) {
+				args.push(&#x27;-background&#x27;)
+				args.push(options.background)
+			}	
+		}
+		else {
+			if (options.background) {
+				args.push(&#x27;-background&#x27;)
+				args.push(options.background)
+				args.push(&#x27;-flatten&#x27;)
+			}	
+		}
+
+		args.push(&#x27;-rotate&#x27;)
+		args.push(options.degree)
+ 		if (options.background) {
+			args.push(&#x27;-background&#x27;)
+			args.push(options.background)
+		}
+		args.push(options.dst)
+
+		child = exec(&#x27;convert&#x27;, args, function(err, stdout, stderr) {
+			if (err) deferred.reject(err);
+			else deferred.resolve(info(options.dst));
+		});
+
+	}
+
+	directoryCheck(options, imgRotate)
+
+	return deferred.promise;
+}</pre></li>
+    <li>example usage<pre class="apidocCodePre">...
+```
+easyimg.info(&#x3c;image_path&#x3e;) - to retrieve information about an image. Will return an object with the following properties
+ - type, depth, width, height, size, density, name, and path.
+easyimg.convert(&#x3c;options&#x3e;) - to convert an image from one format to another.
+easyimg.resize(&#x3c;options&#x3e;) - to resize an image.
+easyimg.crop(&#x3c;options&#x3e;) - to crop an image.
+easyimg.thumbnail(&#x3c;options&#x3e;) - to create square thumbnails.
+easyimg.rescrop(&#x3c;options&#x3e;) - to resize and crop and image in one go, useful for creating customzied thumbnails.
+easyimg.<span class="apidocCodeKeywordSpan">rotate</span>(&#x3c;options&#x3e;) - to rotate an image.
+easyimg.exec(&#x3c;command&#x3e;) - when you want to call a custom command to ImageMagick, you will need to take care of escaping
+ special characters etc.
+```
+**NOTE**: `easyimg.exec()` spawns a subshell.
+
+The EasyImage options object can have these properties depending on the method. Unrelated options are ignored.
+
+```
+...</pre></li>
+    </ul>
+
+
+
+    <h2>
+        <a href="#apidoc.element.easyimage.thumbnail" id="apidoc.element.easyimage.thumbnail">
+        function <span class="apidocSignatureSpan">easyimage.</span>thumbnail
+        <span class="apidocSignatureSpan">(options)</span>
+        </a>
+    </h2>
+    <ul>
+    <li>description and source-code<pre class="apidocCodePre">thumbnail = function (options) {
+
+	var deferred = Q.defer();
+
+	function imgThumbnail() {
+
+		if (options.src === undefined || options.dst === undefined) return deferred.reject(error_messages[&#x27;path&#x27;]);
+		if (options.width === undefined) return deferred.reject(error_messages[&#x27;dim&#x27;]);
+
+		options.height = options.height || options.width;
+		options.gravity = options.gravity || &#x27;Center&#x27;;
+		options.x = options.x || 0;
+		options.y = options.y || 0;
+
+		info(options.src).then(function(original) {
+
+			// dimensions come as strings, convert them to number
+			original.width = +original.width;
+			original.height = +original.height;
+
+			var resizewidth = options.width;
+			var resizeheight = options.height;
+
+			if (original.width &#x3e; original.height) { resizewidth = &#x27;&#x27;; }
+			else if (original.height &#x3e; original.width) { resizeheight = &#x27;&#x27;; }
+
+	    var args = [options.src]
+
+			if (options.flatten) {
+				args.push(&#x27;-flatten&#x27;)
+				if (options.background) {
+					args.push(&#x27;-background&#x27;)
+					args.push(options.background)
+				}	
+			}
+			else {
+				if (options.background) {
+					args.push(&#x27;-background&#x27;)
+					args.push(options.background)
+					args.push(&#x27;-flatten&#x27;)
+				}	
+			}
+
+	    args.push(&#x27;-auto-orient&#x27;)
+	    args.push(&#x27;-gravity&#x27;)
+	    args.push(options.gravity)
+	    args.push(&#x27;-interpolate&#x27;)
+	    args.push(&#x27;bicubic&#x27;)
+	    args.push(&#x27;-strip&#x27;)
+	    args.push(&#x27;-thumbnail&#x27;)
+	    args.push(resizewidth + &#x27;x&#x27; + resizeheight)
+	    args.push(&#x27;-crop&#x27;)
+	    args.push(options.width + &#x27;x&#x27;+ options.height + &#x27;+&#x27; + options.x + &#x27;+&#x27; + options.y)
+	    if (options.quality) {
+	    	args.push(&#x27;-quality&#x27;)
+	    	args.push(options.quality)
+	    }
+			if (options.background) {
+				args.push(&#x27;-background&#x27;)
+				args.push(options.background)
+			}
+	    args.push(options.dst)
+
+			child = exec(&#x27;convert&#x27;, args, function(err, stdout, stderr) {
+				if (err) return deferred.reject(err);
+				deferred.resolve(info(options.dst));
+			});
+
+		}, function (err) { deferred.reject(err); });
+
+	}
+
+	directoryCheck(options, imgThumbnail)
+	return deferred.promise;
+}</pre></li>
+    <li>example usage<pre class="apidocCodePre">...
+EasyImage offers these promise methods:
+
+```
+easyimg.info(&#x3c;image_path&#x3e;) - to retrieve information about an image. Will return an object with the following properties
+ - type, depth, width, height, size, density, name, and path.
+easyimg.convert(&#x3c;options&#x3e;) - to convert an image from one format to another.
+easyimg.resize(&#x3c;options&#x3e;) - to resize an image.
+easyimg.crop(&#x3c;options&#x3e;) - to crop an image.
+easyimg.<span class="apidocCodeKeywordSpan">thumbnail</span>(&#x3c;options&#x3e;) - to create square thumbnails.
+easyimg.rescrop(&#x3c;options&#x3e;) - to resize and crop and image in one go, useful for creating customzied thumbnails.
+easyimg.rotate(&#x3c;options&#x3e;) - to rotate an image.
+easyimg.exec(&#x3c;command&#x3e;) - when you want to call a custom command to ImageMagick, you will need to take care of escaping
+ special characters etc.
+```
+**NOTE**: `easyimg.exec()` spawns a subshell.
+
+The EasyImage options object can have these properties depending on the method. Unrelated options are ignored.
+...</pre></li>
+    </ul>
+
+
+</div>
+
+<div class="apidocFooterDiv">
+    [ this document was created with
+    <a href="https://github.com/kaizhu256/node-utility2" target="_blank">utility2</a>
+    ]
+</div>
+</div>
