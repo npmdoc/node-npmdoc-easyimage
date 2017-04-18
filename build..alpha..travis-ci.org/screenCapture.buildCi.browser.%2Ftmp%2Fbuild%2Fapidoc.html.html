@@ -1,4 +1,4 @@
-<div class="apidocDiv">
+<html><head></head><body><div class="apidocDiv">
 <style>
 /*csslint
 */
@@ -47,17 +47,10 @@
 }
 </style>
 <h1>api documentation for
-    <a
-
-        href="https://github.com/hacksparrow/node-easyimage"
-
-    >easyimage (v2.1.0)</a>
+    <a href="https://github.com/hacksparrow/node-easyimage">easyimage (v2.1.0)</a>
 </h1>
 <h4>A promise-based, user-friendly module for processing images in Node.js</h4>
-<div class="apidocSectionDiv"><a
-    href="#apidoc.tableOfContents"
-    id="apidoc.tableOfContents"
-><h1>table of contents</h1></a><ol>
+<div class="apidocSectionDiv"><a href="#apidoc.tableOfContents" id="apidoc.tableOfContents"><h1>table of contents</h1></a><ol>
 
     <li class="apidocModuleLi"><a href="#apidoc.module.easyimage">module easyimage</a><ol>
 
@@ -258,32 +251,32 @@
 
 	function imgConvert() {
 
-		if (options.src === undefined || options.dst === undefined) return deferred.reject(error_messages[&#x27;path&#x27;]);
+		if (options.src === undefined || options.dst === undefined) return deferred.reject(error_messages['path']);
 
 		var args = [options.src]
 		if (options.quality) {
-			args.push(&#x27;-quality&#x27;)
+			args.push('-quality')
 			args.push(options.quality)
 		}
 
 		if (options.flatten) {
-			args.push(&#x27;-flatten&#x27;)
+			args.push('-flatten')
 			if (options.background) {
-				args.push(&#x27;-background&#x27;)
+				args.push('-background')
 				args.push(options.background)
 			}	
 		}
 		else {
 			if (options.background) {
-				args.push(&#x27;-background&#x27;)
+				args.push('-background')
 				args.push(options.background)
-				args.push(&#x27;-flatten&#x27;)
+				args.push('-flatten')
 			}	
 		}
 
 		args.push(options.dst)
 
-		child = exec(&#x27;convert&#x27;, args, function(err, stdout, stderr) {
+		child = exec('convert', args, function(err, stdout, stderr) {
 
 			if (err) deferred.reject(err);
 			else deferred.resolve(info(options.dst));
@@ -296,22 +289,22 @@
 	return deferred.promise;
 }</pre></li>
     <li>example usage<pre class="apidocCodePre">...
-var easyimg = require(&#x27;easyimage&#x27;);
+var easyimg = require('easyimage');
 ```
 
 EasyImage offers these promise methods:
 
 ```
-easyimg.info(&#x3c;image_path&#x3e;) - to retrieve information about an image. Will return an object with the following properties
+easyimg.info(&lt;image_path&gt;) - to retrieve information about an image. Will return an object with the following properties
  - type, depth, width, height, size, density, name, and path.
-easyimg.<span class="apidocCodeKeywordSpan">convert</span>(&#x3c;options&#x3e;) - to convert an image from one format to another
+easyimg.<span class="apidocCodeKeywordSpan">convert</span>(&lt;options&gt;) - to convert an image from one format to another
 .
-easyimg.resize(&#x3c;options&#x3e;) - to resize an image.
-easyimg.crop(&#x3c;options&#x3e;) - to crop an image.
-easyimg.thumbnail(&#x3c;options&#x3e;) - to create square thumbnails.
-easyimg.rescrop(&#x3c;options&#x3e;) - to resize and crop and image in one go, useful for creating customzied thumbnails.
-easyimg.rotate(&#x3c;options&#x3e;) - to rotate an image.
-easyimg.exec(&#x3c;command&#x3e;) - when you want to call a custom command to ImageMagick, you will need to take care of escaping
+easyimg.resize(&lt;options&gt;) - to resize an image.
+easyimg.crop(&lt;options&gt;) - to crop an image.
+easyimg.thumbnail(&lt;options&gt;) - to create square thumbnails.
+easyimg.rescrop(&lt;options&gt;) - to resize and crop and image in one go, useful for creating customzied thumbnails.
+easyimg.rotate(&lt;options&gt;) - to rotate an image.
+easyimg.exec(&lt;command&gt;) - when you want to call a custom command to ImageMagick, you will need to take care of escaping
  special characters etc.
 ```
 ...</pre></li>
@@ -331,47 +324,47 @@ easyimg.exec(&#x3c;command&#x3e;) - when you want to call a custom command to Im
 	var deferred = Q.defer();
 
 	function imgCrop() {
-		if (options.src === undefined || options.dst === undefined) return deferred.reject(error_messages[&#x27;path&#x27;]);
-		if (options.cropwidth === undefined) return deferred.reject(error_messages[&#x27;dim&#x27;]);
+		if (options.src === undefined || options.dst === undefined) return deferred.reject(error_messages['path']);
+		if (options.cropwidth === undefined) return deferred.reject(error_messages['dim']);
 
 		options.cropheight = options.cropheight || options.cropwidth;
-		options.gravity = options.gravity || &#x27;Center&#x27;;
+		options.gravity = options.gravity || 'Center';
 		options.x = options.x || 0;
 		options.y = options.y || 0;
 
     var args = [options.src]
 
 		if (options.flatten) {
-			args.push(&#x27;-flatten&#x27;)
+			args.push('-flatten')
 			if (options.background) {
-				args.push(&#x27;-background&#x27;)
+				args.push('-background')
 				args.push(options.background)
 			}	
 		}
 		else {
 			if (options.background) {
-				args.push(&#x27;-background&#x27;)
+				args.push('-background')
 				args.push(options.background)
-				args.push(&#x27;-flatten&#x27;)
+				args.push('-flatten')
 			}	
 		}
 
-    args.push(&#x27;-auto-orient&#x27;)
-    args.push(&#x27;-gravity&#x27;)
+    args.push('-auto-orient')
+    args.push('-gravity')
     args.push(options.gravity)
-    args.push(&#x27;-crop&#x27;)
-    args.push(options.cropwidth + &#x27;x&#x27;+ options.cropheight + &#x27;+&#x27; + options.x + &#x27;+&#x27; + options.y)
+    args.push('-crop')
+    args.push(options.cropwidth + 'x'+ options.cropheight + '+' + options.x + '+' + options.y)
     if (options.quality) {
-    	args.push(&#x27;-quality&#x27;)
+    	args.push('-quality')
     	args.push(options.quality)
     }
  		if (options.background) {
-			args.push(&#x27;-background&#x27;)
+			args.push('-background')
 			args.push(options.background)
 		}
     args.push(options.dst)
 
-		child = exec(&#x27;convert&#x27;, args, function(err, stdout, stderr) {
+		child = exec('convert', args, function(err, stdout, stderr) {
 			if (err) deferred.reject(err);
 			deferred.resolve(info(options.dst));
 		});
@@ -385,15 +378,15 @@ easyimg.exec(&#x3c;command&#x3e;) - when you want to call a custom command to Im
 EasyImage offers these promise methods:
 
 ```
-easyimg.info(&#x3c;image_path&#x3e;) - to retrieve information about an image. Will return an object with the following properties
+easyimg.info(&lt;image_path&gt;) - to retrieve information about an image. Will return an object with the following properties
  - type, depth, width, height, size, density, name, and path.
-easyimg.convert(&#x3c;options&#x3e;) - to convert an image from one format to another.
-easyimg.resize(&#x3c;options&#x3e;) - to resize an image.
-easyimg.<span class="apidocCodeKeywordSpan">crop</span>(&#x3c;options&#x3e;) - to crop an image.
-easyimg.thumbnail(&#x3c;options&#x3e;) - to create square thumbnails.
-easyimg.rescrop(&#x3c;options&#x3e;) - to resize and crop and image in one go, useful for creating customzied thumbnails.
-easyimg.rotate(&#x3c;options&#x3e;) - to rotate an image.
-easyimg.exec(&#x3c;command&#x3e;) - when you want to call a custom command to ImageMagick, you will need to take care of escaping
+easyimg.convert(&lt;options&gt;) - to convert an image from one format to another.
+easyimg.resize(&lt;options&gt;) - to resize an image.
+easyimg.<span class="apidocCodeKeywordSpan">crop</span>(&lt;options&gt;) - to crop an image.
+easyimg.thumbnail(&lt;options&gt;) - to create square thumbnails.
+easyimg.rescrop(&lt;options&gt;) - to resize and crop and image in one go, useful for creating customzied thumbnails.
+easyimg.rotate(&lt;options&gt;) - to rotate an image.
+easyimg.exec(&lt;command&gt;) - when you want to call a custom command to ImageMagick, you will need to take care of escaping
  special characters etc.
 ```
 **NOTE**: `easyimg.exec()` spawns a subshell.
@@ -425,15 +418,15 @@ easyimg.exec(&#x3c;command&#x3e;) - when you want to call a custom command to Im
 	return deferred.promise;
 }</pre></li>
     <li>example usage<pre class="apidocCodePre">...
-easyimg.info(&#x3c;image_path&#x3e;) - to retrieve information about an image. Will return an object with the following properties
+easyimg.info(&lt;image_path&gt;) - to retrieve information about an image. Will return an object with the following properties
  - type, depth, width, height, size, density, name, and path.
-easyimg.convert(&#x3c;options&#x3e;) - to convert an image from one format to another.
-easyimg.resize(&#x3c;options&#x3e;) - to resize an image.
-easyimg.crop(&#x3c;options&#x3e;) - to crop an image.
-easyimg.thumbnail(&#x3c;options&#x3e;) - to create square thumbnails.
-easyimg.rescrop(&#x3c;options&#x3e;) - to resize and crop and image in one go, useful for creating customzied thumbnails.
-easyimg.rotate(&#x3c;options&#x3e;) - to rotate an image.
-easyimg.<span class="apidocCodeKeywordSpan">exec</span>(&#x3c;command&#x3e;) - when you want to call a custom command to ImageMagick
+easyimg.convert(&lt;options&gt;) - to convert an image from one format to another.
+easyimg.resize(&lt;options&gt;) - to resize an image.
+easyimg.crop(&lt;options&gt;) - to crop an image.
+easyimg.thumbnail(&lt;options&gt;) - to create square thumbnails.
+easyimg.rescrop(&lt;options&gt;) - to resize and crop and image in one go, useful for creating customzied thumbnails.
+easyimg.rotate(&lt;options&gt;) - to rotate an image.
+easyimg.<span class="apidocCodeKeywordSpan">exec</span>(&lt;command&gt;) - when you want to call a custom command to ImageMagick
 , you will need to take care of escaping special characters etc.
 ```
 **NOTE**: `easyimg.exec()` spawns a subshell.
@@ -459,21 +452,21 @@ src - path to source image.
 }</pre></li>
     <li>example usage<pre class="apidocCodePre">...
 ```
-var easyimg = require(&#x27;easyimage&#x27;);
+var easyimg = require('easyimage');
 ```
 
 EasyImage offers these promise methods:
 
 ```
-easyimg.<span class="apidocCodeKeywordSpan">info</span>(&#x3c;image_path&#x3e;) - to retrieve information about an image. Will return
+easyimg.<span class="apidocCodeKeywordSpan">info</span>(&lt;image_path&gt;) - to retrieve information about an image. Will return
  an object with the following properties - type, depth, width, height, size, density, name, and path.
-easyimg.convert(&#x3c;options&#x3e;) - to convert an image from one format to another.
-easyimg.resize(&#x3c;options&#x3e;) - to resize an image.
-easyimg.crop(&#x3c;options&#x3e;) - to crop an image.
-easyimg.thumbnail(&#x3c;options&#x3e;) - to create square thumbnails.
-easyimg.rescrop(&#x3c;options&#x3e;) - to resize and crop and image in one go, useful for creating customzied thumbnails.
-easyimg.rotate(&#x3c;options&#x3e;) - to rotate an image.
-easyimg.exec(&#x3c;command&#x3e;) - when you want to call a custom command to ImageMagick, you will need to take care of escaping
+easyimg.convert(&lt;options&gt;) - to convert an image from one format to another.
+easyimg.resize(&lt;options&gt;) - to resize an image.
+easyimg.crop(&lt;options&gt;) - to crop an image.
+easyimg.thumbnail(&lt;options&gt;) - to create square thumbnails.
+easyimg.rescrop(&lt;options&gt;) - to resize and crop and image in one go, useful for creating customzied thumbnails.
+easyimg.rotate(&lt;options&gt;) - to rotate an image.
+easyimg.exec(&lt;command&gt;) - when you want to call a custom command to ImageMagick, you will need to take care of escaping
  special characters etc.
 ...</pre></li>
     </ul>
@@ -493,54 +486,54 @@ easyimg.exec(&#x3c;command&#x3e;) - when you want to call a custom command to Im
 
 	function imgResCrop() {
 
-		if (options.src === undefined || options.dst === undefined) return deferred.reject(error_messages[&#x27;path&#x27;]);
-		if (options.width === undefined) return deferred.reject(error_messages[&#x27;dim&#x27;]);
+		if (options.src === undefined || options.dst === undefined) return deferred.reject(error_messages['path']);
+		if (options.width === undefined) return deferred.reject(error_messages['dim']);
 
 		options.height = options.height || options.width;
 
 		options.cropwidth = options.cropwidth || options.width;
 		options.cropheight = options.cropheight || options.height;
 
-		options.gravity = options.gravity || &#x27;Center&#x27;;
+		options.gravity = options.gravity || 'Center';
 		options.x = options.x || 0;
 		options.y = options.y || 0;
-		options.fill = options.fill ? &#x27;^&#x27; : &#x27;&#x27;;
+		options.fill = options.fill ? '^' : '';
 
     var args = [options.src]
 
 		if (options.flatten) {
-			args.push(&#x27;-flatten&#x27;)
+			args.push('-flatten')
 			if (options.background) {
-				args.push(&#x27;-background&#x27;)
+				args.push('-background')
 				args.push(options.background)
 			}	
 		}
 		else {
 			if (options.background) {
-				args.push(&#x27;-background&#x27;)
+				args.push('-background')
 				args.push(options.background)
-				args.push(&#x27;-flatten&#x27;)
+				args.push('-flatten')
 			}	
 		}
 
-    args.push(&#x27;-auto-orient&#x27;)
-    args.push(&#x27;-gravity&#x27;)
+    args.push('-auto-orient')
+    args.push('-gravity')
     args.push(options.gravity)
-    args.push(&#x27;-resize&#x27;)
-    args.push(options.width + &#x27;x&#x27; + options.height + options.fill)
-    args.push(&#x27;-crop&#x27;)
-    args.push(options.cropwidth + &#x27;x&#x27;+ options.cropheight + &#x27;+&#x27; + options.x + &#x27;+&#x27; + options.y)
+    args.push('-resize')
+    args.push(options.width + 'x' + options.height + options.fill)
+    args.push('-crop')
+    args.push(options.cropwidth + 'x'+ options.cropheight + '+' + options.x + '+' + options.y)
     if (options.quality) {
-    	args.push(&#x27;-quality&#x27;)
+    	args.push('-quality')
     	args.push(options.quality)
     }
  		if (options.background) {
-			args.push(&#x27;-background&#x27;)
+			args.push('-background')
 			args.push(options.background)
 		}
     args.push(options.dst)
 
-		child = exec(&#x27;convert&#x27;, args, function(err, stdout, stderr) {
+		child = exec('convert', args, function(err, stdout, stderr) {
 			if (err) deferred.reject(err);
 			deferred.resolve(info(options.dst));
 		});
@@ -553,16 +546,16 @@ easyimg.exec(&#x3c;command&#x3e;) - when you want to call a custom command to Im
     <li>example usage<pre class="apidocCodePre">...
 
 ```
-easyimg.info(&#x3c;image_path&#x3e;) - to retrieve information about an image. Will return an object with the following properties
+easyimg.info(&lt;image_path&gt;) - to retrieve information about an image. Will return an object with the following properties
  - type, depth, width, height, size, density, name, and path.
-easyimg.convert(&#x3c;options&#x3e;) - to convert an image from one format to another.
-easyimg.resize(&#x3c;options&#x3e;) - to resize an image.
-easyimg.crop(&#x3c;options&#x3e;) - to crop an image.
-easyimg.thumbnail(&#x3c;options&#x3e;) - to create square thumbnails.
-easyimg.<span class="apidocCodeKeywordSpan">rescrop</span>(&#x3c;options&#x3e;) - to resize and crop and image in one go, useful
+easyimg.convert(&lt;options&gt;) - to convert an image from one format to another.
+easyimg.resize(&lt;options&gt;) - to resize an image.
+easyimg.crop(&lt;options&gt;) - to crop an image.
+easyimg.thumbnail(&lt;options&gt;) - to create square thumbnails.
+easyimg.<span class="apidocCodeKeywordSpan">rescrop</span>(&lt;options&gt;) - to resize and crop and image in one go, useful
  for creating customzied thumbnails.
-easyimg.rotate(&#x3c;options&#x3e;) - to rotate an image.
-easyimg.exec(&#x3c;command&#x3e;) - when you want to call a custom command to ImageMagick, you will need to take care of escaping
+easyimg.rotate(&lt;options&gt;) - to rotate an image.
+easyimg.exec(&lt;command&gt;) - when you want to call a custom command to ImageMagick, you will need to take care of escaping
  special characters etc.
 ```
 **NOTE**: `easyimg.exec()` spawns a subshell.
@@ -586,45 +579,45 @@ The EasyImage options object can have these properties depending on the method. 
 
 	function imgResize() {
 
-		if (options.src === undefined || options.dst === undefined) return deferred.reject(error_messages[&#x27;path&#x27;]);
-		if (options.width === undefined) return deferred.reject(error_messages[&#x27;dim&#x27;]);
+		if (options.src === undefined || options.dst === undefined) return deferred.reject(error_messages['path']);
+		if (options.width === undefined) return deferred.reject(error_messages['dim']);
 
 		options.height = options.height || options.width;
 
     var args = [options.src]
 
 		if (options.flatten) {
-			args.push(&#x27;-flatten&#x27;)
+			args.push('-flatten')
 			if (options.background) {
-				args.push(&#x27;-background&#x27;)
+				args.push('-background')
 				args.push(options.background)
 			}	
 		}
 		else {
 			if (options.background) {
-				args.push(&#x27;-background&#x27;)
+				args.push('-background')
 				args.push(options.background)
-				args.push(&#x27;-flatten&#x27;)
+				args.push('-flatten')
 			}	
 		}
 
-    args.push(&#x27;-auto-orient&#x27;)
-    args.push(&#x27;-resize&#x27;)
-    args.push(options.width + &#x27;x&#x27; + options.height)
+    args.push('-auto-orient')
+    args.push('-resize')
+    args.push(options.width + 'x' + options.height)
     if (options.ignoreAspectRatio) {
-      args[args.length-1] += &#x27;!&#x27;;
+      args[args.length-1] += '!';
     }
     if (options.quality) {
-    	args.push(&#x27;-quality&#x27;)
+    	args.push('-quality')
     	args.push(options.quality)
     }
  		if (options.background) {
-			args.push(&#x27;-background&#x27;)
+			args.push('-background')
 			args.push(options.background)
 		}
     args.push(options.dst)
 
-		child = exec(&#x27;convert&#x27;, args, function(err, stdout, stderr) {
+		child = exec('convert', args, function(err, stdout, stderr) {
 			if (err) deferred.reject(err);
 			deferred.resolve(info(options.dst));
 		});
@@ -640,15 +633,15 @@ The EasyImage options object can have these properties depending on the method. 
 EasyImage offers these promise methods:
 
 ```
-easyimg.info(&#x3c;image_path&#x3e;) - to retrieve information about an image. Will return an object with the following properties
+easyimg.info(&lt;image_path&gt;) - to retrieve information about an image. Will return an object with the following properties
  - type, depth, width, height, size, density, name, and path.
-easyimg.convert(&#x3c;options&#x3e;) - to convert an image from one format to another.
-easyimg.<span class="apidocCodeKeywordSpan">resize</span>(&#x3c;options&#x3e;) - to resize an image.
-easyimg.crop(&#x3c;options&#x3e;) - to crop an image.
-easyimg.thumbnail(&#x3c;options&#x3e;) - to create square thumbnails.
-easyimg.rescrop(&#x3c;options&#x3e;) - to resize and crop and image in one go, useful for creating customzied thumbnails.
-easyimg.rotate(&#x3c;options&#x3e;) - to rotate an image.
-easyimg.exec(&#x3c;command&#x3e;) - when you want to call a custom command to ImageMagick, you will need to take care of escaping
+easyimg.convert(&lt;options&gt;) - to convert an image from one format to another.
+easyimg.<span class="apidocCodeKeywordSpan">resize</span>(&lt;options&gt;) - to resize an image.
+easyimg.crop(&lt;options&gt;) - to crop an image.
+easyimg.thumbnail(&lt;options&gt;) - to create square thumbnails.
+easyimg.rescrop(&lt;options&gt;) - to resize and crop and image in one go, useful for creating customzied thumbnails.
+easyimg.rotate(&lt;options&gt;) - to rotate an image.
+easyimg.exec(&lt;command&gt;) - when you want to call a custom command to ImageMagick, you will need to take care of escaping
  special characters etc.
 ```
 **NOTE**: `easyimg.exec()` spawns a subshell.
@@ -671,34 +664,34 @@ easyimg.exec(&#x3c;command&#x3e;) - when you want to call a custom command to Im
 	function imgRotate() {
 
 		if (options.src === undefined || options.dst === undefined || options.degree === undefined) return deferred.reject(error_messages
-[&#x27;path&#x27;]);
+['path']);
 
 		var args = [options.src]
 
 		if (options.flatten) {
-			args.push(&#x27;-flatten&#x27;)
+			args.push('-flatten')
 			if (options.background) {
-				args.push(&#x27;-background&#x27;)
+				args.push('-background')
 				args.push(options.background)
 			}	
 		}
 		else {
 			if (options.background) {
-				args.push(&#x27;-background&#x27;)
+				args.push('-background')
 				args.push(options.background)
-				args.push(&#x27;-flatten&#x27;)
+				args.push('-flatten')
 			}	
 		}
 
-		args.push(&#x27;-rotate&#x27;)
+		args.push('-rotate')
 		args.push(options.degree)
  		if (options.background) {
-			args.push(&#x27;-background&#x27;)
+			args.push('-background')
 			args.push(options.background)
 		}
 		args.push(options.dst)
 
-		child = exec(&#x27;convert&#x27;, args, function(err, stdout, stderr) {
+		child = exec('convert', args, function(err, stdout, stderr) {
 			if (err) deferred.reject(err);
 			else deferred.resolve(info(options.dst));
 		});
@@ -711,15 +704,15 @@ easyimg.exec(&#x3c;command&#x3e;) - when you want to call a custom command to Im
 }</pre></li>
     <li>example usage<pre class="apidocCodePre">...
 ```
-easyimg.info(&#x3c;image_path&#x3e;) - to retrieve information about an image. Will return an object with the following properties
+easyimg.info(&lt;image_path&gt;) - to retrieve information about an image. Will return an object with the following properties
  - type, depth, width, height, size, density, name, and path.
-easyimg.convert(&#x3c;options&#x3e;) - to convert an image from one format to another.
-easyimg.resize(&#x3c;options&#x3e;) - to resize an image.
-easyimg.crop(&#x3c;options&#x3e;) - to crop an image.
-easyimg.thumbnail(&#x3c;options&#x3e;) - to create square thumbnails.
-easyimg.rescrop(&#x3c;options&#x3e;) - to resize and crop and image in one go, useful for creating customzied thumbnails.
-easyimg.<span class="apidocCodeKeywordSpan">rotate</span>(&#x3c;options&#x3e;) - to rotate an image.
-easyimg.exec(&#x3c;command&#x3e;) - when you want to call a custom command to ImageMagick, you will need to take care of escaping
+easyimg.convert(&lt;options&gt;) - to convert an image from one format to another.
+easyimg.resize(&lt;options&gt;) - to resize an image.
+easyimg.crop(&lt;options&gt;) - to crop an image.
+easyimg.thumbnail(&lt;options&gt;) - to create square thumbnails.
+easyimg.rescrop(&lt;options&gt;) - to resize and crop and image in one go, useful for creating customzied thumbnails.
+easyimg.<span class="apidocCodeKeywordSpan">rotate</span>(&lt;options&gt;) - to rotate an image.
+easyimg.exec(&lt;command&gt;) - when you want to call a custom command to ImageMagick, you will need to take care of escaping
  special characters etc.
 ```
 **NOTE**: `easyimg.exec()` spawns a subshell.
@@ -745,11 +738,11 @@ The EasyImage options object can have these properties depending on the method. 
 
 	function imgThumbnail() {
 
-		if (options.src === undefined || options.dst === undefined) return deferred.reject(error_messages[&#x27;path&#x27;]);
-		if (options.width === undefined) return deferred.reject(error_messages[&#x27;dim&#x27;]);
+		if (options.src === undefined || options.dst === undefined) return deferred.reject(error_messages['path']);
+		if (options.width === undefined) return deferred.reject(error_messages['dim']);
 
 		options.height = options.height || options.width;
-		options.gravity = options.gravity || &#x27;Center&#x27;;
+		options.gravity = options.gravity || 'Center';
 		options.x = options.x || 0;
 		options.y = options.y || 0;
 
@@ -762,47 +755,47 @@ The EasyImage options object can have these properties depending on the method. 
 			var resizewidth = options.width;
 			var resizeheight = options.height;
 
-			if (original.width &#x3e; original.height) { resizewidth = &#x27;&#x27;; }
-			else if (original.height &#x3e; original.width) { resizeheight = &#x27;&#x27;; }
+			if (original.width &gt; original.height) { resizewidth = ''; }
+			else if (original.height &gt; original.width) { resizeheight = ''; }
 
 	    var args = [options.src]
 
 			if (options.flatten) {
-				args.push(&#x27;-flatten&#x27;)
+				args.push('-flatten')
 				if (options.background) {
-					args.push(&#x27;-background&#x27;)
+					args.push('-background')
 					args.push(options.background)
 				}	
 			}
 			else {
 				if (options.background) {
-					args.push(&#x27;-background&#x27;)
+					args.push('-background')
 					args.push(options.background)
-					args.push(&#x27;-flatten&#x27;)
+					args.push('-flatten')
 				}	
 			}
 
-	    args.push(&#x27;-auto-orient&#x27;)
-	    args.push(&#x27;-gravity&#x27;)
+	    args.push('-auto-orient')
+	    args.push('-gravity')
 	    args.push(options.gravity)
-	    args.push(&#x27;-interpolate&#x27;)
-	    args.push(&#x27;bicubic&#x27;)
-	    args.push(&#x27;-strip&#x27;)
-	    args.push(&#x27;-thumbnail&#x27;)
-	    args.push(resizewidth + &#x27;x&#x27; + resizeheight)
-	    args.push(&#x27;-crop&#x27;)
-	    args.push(options.width + &#x27;x&#x27;+ options.height + &#x27;+&#x27; + options.x + &#x27;+&#x27; + options.y)
+	    args.push('-interpolate')
+	    args.push('bicubic')
+	    args.push('-strip')
+	    args.push('-thumbnail')
+	    args.push(resizewidth + 'x' + resizeheight)
+	    args.push('-crop')
+	    args.push(options.width + 'x'+ options.height + '+' + options.x + '+' + options.y)
 	    if (options.quality) {
-	    	args.push(&#x27;-quality&#x27;)
+	    	args.push('-quality')
 	    	args.push(options.quality)
 	    }
 			if (options.background) {
-				args.push(&#x27;-background&#x27;)
+				args.push('-background')
 				args.push(options.background)
 			}
 	    args.push(options.dst)
 
-			child = exec(&#x27;convert&#x27;, args, function(err, stdout, stderr) {
+			child = exec('convert', args, function(err, stdout, stderr) {
 				if (err) return deferred.reject(err);
 				deferred.resolve(info(options.dst));
 			});
@@ -818,15 +811,15 @@ The EasyImage options object can have these properties depending on the method. 
 EasyImage offers these promise methods:
 
 ```
-easyimg.info(&#x3c;image_path&#x3e;) - to retrieve information about an image. Will return an object with the following properties
+easyimg.info(&lt;image_path&gt;) - to retrieve information about an image. Will return an object with the following properties
  - type, depth, width, height, size, density, name, and path.
-easyimg.convert(&#x3c;options&#x3e;) - to convert an image from one format to another.
-easyimg.resize(&#x3c;options&#x3e;) - to resize an image.
-easyimg.crop(&#x3c;options&#x3e;) - to crop an image.
-easyimg.<span class="apidocCodeKeywordSpan">thumbnail</span>(&#x3c;options&#x3e;) - to create square thumbnails.
-easyimg.rescrop(&#x3c;options&#x3e;) - to resize and crop and image in one go, useful for creating customzied thumbnails.
-easyimg.rotate(&#x3c;options&#x3e;) - to rotate an image.
-easyimg.exec(&#x3c;command&#x3e;) - when you want to call a custom command to ImageMagick, you will need to take care of escaping
+easyimg.convert(&lt;options&gt;) - to convert an image from one format to another.
+easyimg.resize(&lt;options&gt;) - to resize an image.
+easyimg.crop(&lt;options&gt;) - to crop an image.
+easyimg.<span class="apidocCodeKeywordSpan">thumbnail</span>(&lt;options&gt;) - to create square thumbnails.
+easyimg.rescrop(&lt;options&gt;) - to resize and crop and image in one go, useful for creating customzied thumbnails.
+easyimg.rotate(&lt;options&gt;) - to rotate an image.
+easyimg.exec(&lt;command&gt;) - when you want to call a custom command to ImageMagick, you will need to take care of escaping
  special characters etc.
 ```
 **NOTE**: `easyimg.exec()` spawns a subshell.
@@ -855,32 +848,32 @@ The EasyImage options object can have these properties depending on the method. 
 
 	function imgConvert() {
 
-		if (options.src === undefined || options.dst === undefined) return deferred.reject(error_messages[&#x27;path&#x27;]);
+		if (options.src === undefined || options.dst === undefined) return deferred.reject(error_messages['path']);
 
 		var args = [options.src]
 		if (options.quality) {
-			args.push(&#x27;-quality&#x27;)
+			args.push('-quality')
 			args.push(options.quality)
 		}
 
 		if (options.flatten) {
-			args.push(&#x27;-flatten&#x27;)
+			args.push('-flatten')
 			if (options.background) {
-				args.push(&#x27;-background&#x27;)
+				args.push('-background')
 				args.push(options.background)
 			}	
 		}
 		else {
 			if (options.background) {
-				args.push(&#x27;-background&#x27;)
+				args.push('-background')
 				args.push(options.background)
-				args.push(&#x27;-flatten&#x27;)
+				args.push('-flatten')
 			}	
 		}
 
 		args.push(options.dst)
 
-		child = exec(&#x27;convert&#x27;, args, function(err, stdout, stderr) {
+		child = exec('convert', args, function(err, stdout, stderr) {
 
 			if (err) deferred.reject(err);
 			else deferred.resolve(info(options.dst));
@@ -893,22 +886,22 @@ The EasyImage options object can have these properties depending on the method. 
 	return deferred.promise;
 }</pre></li>
     <li>example usage<pre class="apidocCodePre">...
-var easyimg = require(&#x27;easyimage&#x27;);
+var easyimg = require('easyimage');
 ```
 
 EasyImage offers these promise methods:
 
 ```
-easyimg.info(&#x3c;image_path&#x3e;) - to retrieve information about an image. Will return an object with the following properties
+easyimg.info(&lt;image_path&gt;) - to retrieve information about an image. Will return an object with the following properties
  - type, depth, width, height, size, density, name, and path.
-easyimg.<span class="apidocCodeKeywordSpan">convert</span>(&#x3c;options&#x3e;) - to convert an image from one format to another
+easyimg.<span class="apidocCodeKeywordSpan">convert</span>(&lt;options&gt;) - to convert an image from one format to another
 .
-easyimg.resize(&#x3c;options&#x3e;) - to resize an image.
-easyimg.crop(&#x3c;options&#x3e;) - to crop an image.
-easyimg.thumbnail(&#x3c;options&#x3e;) - to create square thumbnails.
-easyimg.rescrop(&#x3c;options&#x3e;) - to resize and crop and image in one go, useful for creating customzied thumbnails.
-easyimg.rotate(&#x3c;options&#x3e;) - to rotate an image.
-easyimg.exec(&#x3c;command&#x3e;) - when you want to call a custom command to ImageMagick, you will need to take care of escaping
+easyimg.resize(&lt;options&gt;) - to resize an image.
+easyimg.crop(&lt;options&gt;) - to crop an image.
+easyimg.thumbnail(&lt;options&gt;) - to create square thumbnails.
+easyimg.rescrop(&lt;options&gt;) - to resize and crop and image in one go, useful for creating customzied thumbnails.
+easyimg.rotate(&lt;options&gt;) - to rotate an image.
+easyimg.exec(&lt;command&gt;) - when you want to call a custom command to ImageMagick, you will need to take care of escaping
  special characters etc.
 ```
 ...</pre></li>
@@ -933,47 +926,47 @@ easyimg.exec(&#x3c;command&#x3e;) - when you want to call a custom command to Im
 	var deferred = Q.defer();
 
 	function imgCrop() {
-		if (options.src === undefined || options.dst === undefined) return deferred.reject(error_messages[&#x27;path&#x27;]);
-		if (options.cropwidth === undefined) return deferred.reject(error_messages[&#x27;dim&#x27;]);
+		if (options.src === undefined || options.dst === undefined) return deferred.reject(error_messages['path']);
+		if (options.cropwidth === undefined) return deferred.reject(error_messages['dim']);
 
 		options.cropheight = options.cropheight || options.cropwidth;
-		options.gravity = options.gravity || &#x27;Center&#x27;;
+		options.gravity = options.gravity || 'Center';
 		options.x = options.x || 0;
 		options.y = options.y || 0;
 
     var args = [options.src]
 
 		if (options.flatten) {
-			args.push(&#x27;-flatten&#x27;)
+			args.push('-flatten')
 			if (options.background) {
-				args.push(&#x27;-background&#x27;)
+				args.push('-background')
 				args.push(options.background)
 			}	
 		}
 		else {
 			if (options.background) {
-				args.push(&#x27;-background&#x27;)
+				args.push('-background')
 				args.push(options.background)
-				args.push(&#x27;-flatten&#x27;)
+				args.push('-flatten')
 			}	
 		}
 
-    args.push(&#x27;-auto-orient&#x27;)
-    args.push(&#x27;-gravity&#x27;)
+    args.push('-auto-orient')
+    args.push('-gravity')
     args.push(options.gravity)
-    args.push(&#x27;-crop&#x27;)
-    args.push(options.cropwidth + &#x27;x&#x27;+ options.cropheight + &#x27;+&#x27; + options.x + &#x27;+&#x27; + options.y)
+    args.push('-crop')
+    args.push(options.cropwidth + 'x'+ options.cropheight + '+' + options.x + '+' + options.y)
     if (options.quality) {
-    	args.push(&#x27;-quality&#x27;)
+    	args.push('-quality')
     	args.push(options.quality)
     }
  		if (options.background) {
-			args.push(&#x27;-background&#x27;)
+			args.push('-background')
 			args.push(options.background)
 		}
     args.push(options.dst)
 
-		child = exec(&#x27;convert&#x27;, args, function(err, stdout, stderr) {
+		child = exec('convert', args, function(err, stdout, stderr) {
 			if (err) deferred.reject(err);
 			deferred.resolve(info(options.dst));
 		});
@@ -987,15 +980,15 @@ easyimg.exec(&#x3c;command&#x3e;) - when you want to call a custom command to Im
 EasyImage offers these promise methods:
 
 ```
-easyimg.info(&#x3c;image_path&#x3e;) - to retrieve information about an image. Will return an object with the following properties
+easyimg.info(&lt;image_path&gt;) - to retrieve information about an image. Will return an object with the following properties
  - type, depth, width, height, size, density, name, and path.
-easyimg.convert(&#x3c;options&#x3e;) - to convert an image from one format to another.
-easyimg.resize(&#x3c;options&#x3e;) - to resize an image.
-easyimg.<span class="apidocCodeKeywordSpan">crop</span>(&#x3c;options&#x3e;) - to crop an image.
-easyimg.thumbnail(&#x3c;options&#x3e;) - to create square thumbnails.
-easyimg.rescrop(&#x3c;options&#x3e;) - to resize and crop and image in one go, useful for creating customzied thumbnails.
-easyimg.rotate(&#x3c;options&#x3e;) - to rotate an image.
-easyimg.exec(&#x3c;command&#x3e;) - when you want to call a custom command to ImageMagick, you will need to take care of escaping
+easyimg.convert(&lt;options&gt;) - to convert an image from one format to another.
+easyimg.resize(&lt;options&gt;) - to resize an image.
+easyimg.<span class="apidocCodeKeywordSpan">crop</span>(&lt;options&gt;) - to crop an image.
+easyimg.thumbnail(&lt;options&gt;) - to create square thumbnails.
+easyimg.rescrop(&lt;options&gt;) - to resize and crop and image in one go, useful for creating customzied thumbnails.
+easyimg.rotate(&lt;options&gt;) - to rotate an image.
+easyimg.exec(&lt;command&gt;) - when you want to call a custom command to ImageMagick, you will need to take care of escaping
  special characters etc.
 ```
 **NOTE**: `easyimg.exec()` spawns a subshell.
@@ -1032,15 +1025,15 @@ easyimg.exec(&#x3c;command&#x3e;) - when you want to call a custom command to Im
 	return deferred.promise;
 }</pre></li>
     <li>example usage<pre class="apidocCodePre">...
-easyimg.info(&#x3c;image_path&#x3e;) - to retrieve information about an image. Will return an object with the following properties
+easyimg.info(&lt;image_path&gt;) - to retrieve information about an image. Will return an object with the following properties
  - type, depth, width, height, size, density, name, and path.
-easyimg.convert(&#x3c;options&#x3e;) - to convert an image from one format to another.
-easyimg.resize(&#x3c;options&#x3e;) - to resize an image.
-easyimg.crop(&#x3c;options&#x3e;) - to crop an image.
-easyimg.thumbnail(&#x3c;options&#x3e;) - to create square thumbnails.
-easyimg.rescrop(&#x3c;options&#x3e;) - to resize and crop and image in one go, useful for creating customzied thumbnails.
-easyimg.rotate(&#x3c;options&#x3e;) - to rotate an image.
-easyimg.<span class="apidocCodeKeywordSpan">exec</span>(&#x3c;command&#x3e;) - when you want to call a custom command to ImageMagick
+easyimg.convert(&lt;options&gt;) - to convert an image from one format to another.
+easyimg.resize(&lt;options&gt;) - to resize an image.
+easyimg.crop(&lt;options&gt;) - to crop an image.
+easyimg.thumbnail(&lt;options&gt;) - to create square thumbnails.
+easyimg.rescrop(&lt;options&gt;) - to resize and crop and image in one go, useful for creating customzied thumbnails.
+easyimg.rotate(&lt;options&gt;) - to rotate an image.
+easyimg.<span class="apidocCodeKeywordSpan">exec</span>(&lt;command&gt;) - when you want to call a custom command to ImageMagick
 , you will need to take care of escaping special characters etc.
 ```
 **NOTE**: `easyimg.exec()` spawns a subshell.
@@ -1071,21 +1064,21 @@ src - path to source image.
 }</pre></li>
     <li>example usage<pre class="apidocCodePre">...
 ```
-var easyimg = require(&#x27;easyimage&#x27;);
+var easyimg = require('easyimage');
 ```
 
 EasyImage offers these promise methods:
 
 ```
-easyimg.<span class="apidocCodeKeywordSpan">info</span>(&#x3c;image_path&#x3e;) - to retrieve information about an image. Will return
+easyimg.<span class="apidocCodeKeywordSpan">info</span>(&lt;image_path&gt;) - to retrieve information about an image. Will return
  an object with the following properties - type, depth, width, height, size, density, name, and path.
-easyimg.convert(&#x3c;options&#x3e;) - to convert an image from one format to another.
-easyimg.resize(&#x3c;options&#x3e;) - to resize an image.
-easyimg.crop(&#x3c;options&#x3e;) - to crop an image.
-easyimg.thumbnail(&#x3c;options&#x3e;) - to create square thumbnails.
-easyimg.rescrop(&#x3c;options&#x3e;) - to resize and crop and image in one go, useful for creating customzied thumbnails.
-easyimg.rotate(&#x3c;options&#x3e;) - to rotate an image.
-easyimg.exec(&#x3c;command&#x3e;) - when you want to call a custom command to ImageMagick, you will need to take care of escaping
+easyimg.convert(&lt;options&gt;) - to convert an image from one format to another.
+easyimg.resize(&lt;options&gt;) - to resize an image.
+easyimg.crop(&lt;options&gt;) - to crop an image.
+easyimg.thumbnail(&lt;options&gt;) - to create square thumbnails.
+easyimg.rescrop(&lt;options&gt;) - to resize and crop and image in one go, useful for creating customzied thumbnails.
+easyimg.rotate(&lt;options&gt;) - to rotate an image.
+easyimg.exec(&lt;command&gt;) - when you want to call a custom command to ImageMagick, you will need to take care of escaping
  special characters etc.
 ...</pre></li>
     </ul>
@@ -1110,54 +1103,54 @@ easyimg.exec(&#x3c;command&#x3e;) - when you want to call a custom command to Im
 
 	function imgResCrop() {
 
-		if (options.src === undefined || options.dst === undefined) return deferred.reject(error_messages[&#x27;path&#x27;]);
-		if (options.width === undefined) return deferred.reject(error_messages[&#x27;dim&#x27;]);
+		if (options.src === undefined || options.dst === undefined) return deferred.reject(error_messages['path']);
+		if (options.width === undefined) return deferred.reject(error_messages['dim']);
 
 		options.height = options.height || options.width;
 
 		options.cropwidth = options.cropwidth || options.width;
 		options.cropheight = options.cropheight || options.height;
 
-		options.gravity = options.gravity || &#x27;Center&#x27;;
+		options.gravity = options.gravity || 'Center';
 		options.x = options.x || 0;
 		options.y = options.y || 0;
-		options.fill = options.fill ? &#x27;^&#x27; : &#x27;&#x27;;
+		options.fill = options.fill ? '^' : '';
 
     var args = [options.src]
 
 		if (options.flatten) {
-			args.push(&#x27;-flatten&#x27;)
+			args.push('-flatten')
 			if (options.background) {
-				args.push(&#x27;-background&#x27;)
+				args.push('-background')
 				args.push(options.background)
 			}	
 		}
 		else {
 			if (options.background) {
-				args.push(&#x27;-background&#x27;)
+				args.push('-background')
 				args.push(options.background)
-				args.push(&#x27;-flatten&#x27;)
+				args.push('-flatten')
 			}	
 		}
 
-    args.push(&#x27;-auto-orient&#x27;)
-    args.push(&#x27;-gravity&#x27;)
+    args.push('-auto-orient')
+    args.push('-gravity')
     args.push(options.gravity)
-    args.push(&#x27;-resize&#x27;)
-    args.push(options.width + &#x27;x&#x27; + options.height + options.fill)
-    args.push(&#x27;-crop&#x27;)
-    args.push(options.cropwidth + &#x27;x&#x27;+ options.cropheight + &#x27;+&#x27; + options.x + &#x27;+&#x27; + options.y)
+    args.push('-resize')
+    args.push(options.width + 'x' + options.height + options.fill)
+    args.push('-crop')
+    args.push(options.cropwidth + 'x'+ options.cropheight + '+' + options.x + '+' + options.y)
     if (options.quality) {
-    	args.push(&#x27;-quality&#x27;)
+    	args.push('-quality')
     	args.push(options.quality)
     }
  		if (options.background) {
-			args.push(&#x27;-background&#x27;)
+			args.push('-background')
 			args.push(options.background)
 		}
     args.push(options.dst)
 
-		child = exec(&#x27;convert&#x27;, args, function(err, stdout, stderr) {
+		child = exec('convert', args, function(err, stdout, stderr) {
 			if (err) deferred.reject(err);
 			deferred.resolve(info(options.dst));
 		});
@@ -1170,16 +1163,16 @@ easyimg.exec(&#x3c;command&#x3e;) - when you want to call a custom command to Im
     <li>example usage<pre class="apidocCodePre">...
 
 ```
-easyimg.info(&#x3c;image_path&#x3e;) - to retrieve information about an image. Will return an object with the following properties
+easyimg.info(&lt;image_path&gt;) - to retrieve information about an image. Will return an object with the following properties
  - type, depth, width, height, size, density, name, and path.
-easyimg.convert(&#x3c;options&#x3e;) - to convert an image from one format to another.
-easyimg.resize(&#x3c;options&#x3e;) - to resize an image.
-easyimg.crop(&#x3c;options&#x3e;) - to crop an image.
-easyimg.thumbnail(&#x3c;options&#x3e;) - to create square thumbnails.
-easyimg.<span class="apidocCodeKeywordSpan">rescrop</span>(&#x3c;options&#x3e;) - to resize and crop and image in one go, useful
+easyimg.convert(&lt;options&gt;) - to convert an image from one format to another.
+easyimg.resize(&lt;options&gt;) - to resize an image.
+easyimg.crop(&lt;options&gt;) - to crop an image.
+easyimg.thumbnail(&lt;options&gt;) - to create square thumbnails.
+easyimg.<span class="apidocCodeKeywordSpan">rescrop</span>(&lt;options&gt;) - to resize and crop and image in one go, useful
  for creating customzied thumbnails.
-easyimg.rotate(&#x3c;options&#x3e;) - to rotate an image.
-easyimg.exec(&#x3c;command&#x3e;) - when you want to call a custom command to ImageMagick, you will need to take care of escaping
+easyimg.rotate(&lt;options&gt;) - to rotate an image.
+easyimg.exec(&lt;command&gt;) - when you want to call a custom command to ImageMagick, you will need to take care of escaping
  special characters etc.
 ```
 **NOTE**: `easyimg.exec()` spawns a subshell.
@@ -1208,45 +1201,45 @@ The EasyImage options object can have these properties depending on the method. 
 
 	function imgResize() {
 
-		if (options.src === undefined || options.dst === undefined) return deferred.reject(error_messages[&#x27;path&#x27;]);
-		if (options.width === undefined) return deferred.reject(error_messages[&#x27;dim&#x27;]);
+		if (options.src === undefined || options.dst === undefined) return deferred.reject(error_messages['path']);
+		if (options.width === undefined) return deferred.reject(error_messages['dim']);
 
 		options.height = options.height || options.width;
 
     var args = [options.src]
 
 		if (options.flatten) {
-			args.push(&#x27;-flatten&#x27;)
+			args.push('-flatten')
 			if (options.background) {
-				args.push(&#x27;-background&#x27;)
+				args.push('-background')
 				args.push(options.background)
 			}	
 		}
 		else {
 			if (options.background) {
-				args.push(&#x27;-background&#x27;)
+				args.push('-background')
 				args.push(options.background)
-				args.push(&#x27;-flatten&#x27;)
+				args.push('-flatten')
 			}	
 		}
 
-    args.push(&#x27;-auto-orient&#x27;)
-    args.push(&#x27;-resize&#x27;)
-    args.push(options.width + &#x27;x&#x27; + options.height)
+    args.push('-auto-orient')
+    args.push('-resize')
+    args.push(options.width + 'x' + options.height)
     if (options.ignoreAspectRatio) {
-      args[args.length-1] += &#x27;!&#x27;;
+      args[args.length-1] += '!';
     }
     if (options.quality) {
-    	args.push(&#x27;-quality&#x27;)
+    	args.push('-quality')
     	args.push(options.quality)
     }
  		if (options.background) {
-			args.push(&#x27;-background&#x27;)
+			args.push('-background')
 			args.push(options.background)
 		}
     args.push(options.dst)
 
-		child = exec(&#x27;convert&#x27;, args, function(err, stdout, stderr) {
+		child = exec('convert', args, function(err, stdout, stderr) {
 			if (err) deferred.reject(err);
 			deferred.resolve(info(options.dst));
 		});
@@ -1262,15 +1255,15 @@ The EasyImage options object can have these properties depending on the method. 
 EasyImage offers these promise methods:
 
 ```
-easyimg.info(&#x3c;image_path&#x3e;) - to retrieve information about an image. Will return an object with the following properties
+easyimg.info(&lt;image_path&gt;) - to retrieve information about an image. Will return an object with the following properties
  - type, depth, width, height, size, density, name, and path.
-easyimg.convert(&#x3c;options&#x3e;) - to convert an image from one format to another.
-easyimg.<span class="apidocCodeKeywordSpan">resize</span>(&#x3c;options&#x3e;) - to resize an image.
-easyimg.crop(&#x3c;options&#x3e;) - to crop an image.
-easyimg.thumbnail(&#x3c;options&#x3e;) - to create square thumbnails.
-easyimg.rescrop(&#x3c;options&#x3e;) - to resize and crop and image in one go, useful for creating customzied thumbnails.
-easyimg.rotate(&#x3c;options&#x3e;) - to rotate an image.
-easyimg.exec(&#x3c;command&#x3e;) - when you want to call a custom command to ImageMagick, you will need to take care of escaping
+easyimg.convert(&lt;options&gt;) - to convert an image from one format to another.
+easyimg.<span class="apidocCodeKeywordSpan">resize</span>(&lt;options&gt;) - to resize an image.
+easyimg.crop(&lt;options&gt;) - to crop an image.
+easyimg.thumbnail(&lt;options&gt;) - to create square thumbnails.
+easyimg.rescrop(&lt;options&gt;) - to resize and crop and image in one go, useful for creating customzied thumbnails.
+easyimg.rotate(&lt;options&gt;) - to rotate an image.
+easyimg.exec(&lt;command&gt;) - when you want to call a custom command to ImageMagick, you will need to take care of escaping
  special characters etc.
 ```
 **NOTE**: `easyimg.exec()` spawns a subshell.
@@ -1298,34 +1291,34 @@ easyimg.exec(&#x3c;command&#x3e;) - when you want to call a custom command to Im
 	function imgRotate() {
 
 		if (options.src === undefined || options.dst === undefined || options.degree === undefined) return deferred.reject(error_messages
-[&#x27;path&#x27;]);
+['path']);
 
 		var args = [options.src]
 
 		if (options.flatten) {
-			args.push(&#x27;-flatten&#x27;)
+			args.push('-flatten')
 			if (options.background) {
-				args.push(&#x27;-background&#x27;)
+				args.push('-background')
 				args.push(options.background)
 			}	
 		}
 		else {
 			if (options.background) {
-				args.push(&#x27;-background&#x27;)
+				args.push('-background')
 				args.push(options.background)
-				args.push(&#x27;-flatten&#x27;)
+				args.push('-flatten')
 			}	
 		}
 
-		args.push(&#x27;-rotate&#x27;)
+		args.push('-rotate')
 		args.push(options.degree)
  		if (options.background) {
-			args.push(&#x27;-background&#x27;)
+			args.push('-background')
 			args.push(options.background)
 		}
 		args.push(options.dst)
 
-		child = exec(&#x27;convert&#x27;, args, function(err, stdout, stderr) {
+		child = exec('convert', args, function(err, stdout, stderr) {
 			if (err) deferred.reject(err);
 			else deferred.resolve(info(options.dst));
 		});
@@ -1338,15 +1331,15 @@ easyimg.exec(&#x3c;command&#x3e;) - when you want to call a custom command to Im
 }</pre></li>
     <li>example usage<pre class="apidocCodePre">...
 ```
-easyimg.info(&#x3c;image_path&#x3e;) - to retrieve information about an image. Will return an object with the following properties
+easyimg.info(&lt;image_path&gt;) - to retrieve information about an image. Will return an object with the following properties
  - type, depth, width, height, size, density, name, and path.
-easyimg.convert(&#x3c;options&#x3e;) - to convert an image from one format to another.
-easyimg.resize(&#x3c;options&#x3e;) - to resize an image.
-easyimg.crop(&#x3c;options&#x3e;) - to crop an image.
-easyimg.thumbnail(&#x3c;options&#x3e;) - to create square thumbnails.
-easyimg.rescrop(&#x3c;options&#x3e;) - to resize and crop and image in one go, useful for creating customzied thumbnails.
-easyimg.<span class="apidocCodeKeywordSpan">rotate</span>(&#x3c;options&#x3e;) - to rotate an image.
-easyimg.exec(&#x3c;command&#x3e;) - when you want to call a custom command to ImageMagick, you will need to take care of escaping
+easyimg.convert(&lt;options&gt;) - to convert an image from one format to another.
+easyimg.resize(&lt;options&gt;) - to resize an image.
+easyimg.crop(&lt;options&gt;) - to crop an image.
+easyimg.thumbnail(&lt;options&gt;) - to create square thumbnails.
+easyimg.rescrop(&lt;options&gt;) - to resize and crop and image in one go, useful for creating customzied thumbnails.
+easyimg.<span class="apidocCodeKeywordSpan">rotate</span>(&lt;options&gt;) - to rotate an image.
+easyimg.exec(&lt;command&gt;) - when you want to call a custom command to ImageMagick, you will need to take care of escaping
  special characters etc.
 ```
 **NOTE**: `easyimg.exec()` spawns a subshell.
@@ -1377,11 +1370,11 @@ The EasyImage options object can have these properties depending on the method. 
 
 	function imgThumbnail() {
 
-		if (options.src === undefined || options.dst === undefined) return deferred.reject(error_messages[&#x27;path&#x27;]);
-		if (options.width === undefined) return deferred.reject(error_messages[&#x27;dim&#x27;]);
+		if (options.src === undefined || options.dst === undefined) return deferred.reject(error_messages['path']);
+		if (options.width === undefined) return deferred.reject(error_messages['dim']);
 
 		options.height = options.height || options.width;
-		options.gravity = options.gravity || &#x27;Center&#x27;;
+		options.gravity = options.gravity || 'Center';
 		options.x = options.x || 0;
 		options.y = options.y || 0;
 
@@ -1394,47 +1387,47 @@ The EasyImage options object can have these properties depending on the method. 
 			var resizewidth = options.width;
 			var resizeheight = options.height;
 
-			if (original.width &#x3e; original.height) { resizewidth = &#x27;&#x27;; }
-			else if (original.height &#x3e; original.width) { resizeheight = &#x27;&#x27;; }
+			if (original.width &gt; original.height) { resizewidth = ''; }
+			else if (original.height &gt; original.width) { resizeheight = ''; }
 
 	    var args = [options.src]
 
 			if (options.flatten) {
-				args.push(&#x27;-flatten&#x27;)
+				args.push('-flatten')
 				if (options.background) {
-					args.push(&#x27;-background&#x27;)
+					args.push('-background')
 					args.push(options.background)
 				}	
 			}
 			else {
 				if (options.background) {
-					args.push(&#x27;-background&#x27;)
+					args.push('-background')
 					args.push(options.background)
-					args.push(&#x27;-flatten&#x27;)
+					args.push('-flatten')
 				}	
 			}
 
-	    args.push(&#x27;-auto-orient&#x27;)
-	    args.push(&#x27;-gravity&#x27;)
+	    args.push('-auto-orient')
+	    args.push('-gravity')
 	    args.push(options.gravity)
-	    args.push(&#x27;-interpolate&#x27;)
-	    args.push(&#x27;bicubic&#x27;)
-	    args.push(&#x27;-strip&#x27;)
-	    args.push(&#x27;-thumbnail&#x27;)
-	    args.push(resizewidth + &#x27;x&#x27; + resizeheight)
-	    args.push(&#x27;-crop&#x27;)
-	    args.push(options.width + &#x27;x&#x27;+ options.height + &#x27;+&#x27; + options.x + &#x27;+&#x27; + options.y)
+	    args.push('-interpolate')
+	    args.push('bicubic')
+	    args.push('-strip')
+	    args.push('-thumbnail')
+	    args.push(resizewidth + 'x' + resizeheight)
+	    args.push('-crop')
+	    args.push(options.width + 'x'+ options.height + '+' + options.x + '+' + options.y)
 	    if (options.quality) {
-	    	args.push(&#x27;-quality&#x27;)
+	    	args.push('-quality')
 	    	args.push(options.quality)
 	    }
 			if (options.background) {
-				args.push(&#x27;-background&#x27;)
+				args.push('-background')
 				args.push(options.background)
 			}
 	    args.push(options.dst)
 
-			child = exec(&#x27;convert&#x27;, args, function(err, stdout, stderr) {
+			child = exec('convert', args, function(err, stdout, stderr) {
 				if (err) return deferred.reject(err);
 				deferred.resolve(info(options.dst));
 			});
@@ -1450,15 +1443,15 @@ The EasyImage options object can have these properties depending on the method. 
 EasyImage offers these promise methods:
 
 ```
-easyimg.info(&#x3c;image_path&#x3e;) - to retrieve information about an image. Will return an object with the following properties
+easyimg.info(&lt;image_path&gt;) - to retrieve information about an image. Will return an object with the following properties
  - type, depth, width, height, size, density, name, and path.
-easyimg.convert(&#x3c;options&#x3e;) - to convert an image from one format to another.
-easyimg.resize(&#x3c;options&#x3e;) - to resize an image.
-easyimg.crop(&#x3c;options&#x3e;) - to crop an image.
-easyimg.<span class="apidocCodeKeywordSpan">thumbnail</span>(&#x3c;options&#x3e;) - to create square thumbnails.
-easyimg.rescrop(&#x3c;options&#x3e;) - to resize and crop and image in one go, useful for creating customzied thumbnails.
-easyimg.rotate(&#x3c;options&#x3e;) - to rotate an image.
-easyimg.exec(&#x3c;command&#x3e;) - when you want to call a custom command to ImageMagick, you will need to take care of escaping
+easyimg.convert(&lt;options&gt;) - to convert an image from one format to another.
+easyimg.resize(&lt;options&gt;) - to resize an image.
+easyimg.crop(&lt;options&gt;) - to crop an image.
+easyimg.<span class="apidocCodeKeywordSpan">thumbnail</span>(&lt;options&gt;) - to create square thumbnails.
+easyimg.rescrop(&lt;options&gt;) - to resize and crop and image in one go, useful for creating customzied thumbnails.
+easyimg.rotate(&lt;options&gt;) - to rotate an image.
+easyimg.exec(&lt;command&gt;) - when you want to call a custom command to ImageMagick, you will need to take care of escaping
  special characters etc.
 ```
 **NOTE**: `easyimg.exec()` spawns a subshell.
@@ -1476,3 +1469,4 @@ The EasyImage options object can have these properties depending on the method. 
     ]
 </div>
 </div>
+</body></html>
