@@ -1,7 +1,7 @@
 {
     "author": "kai zhu <kaizhu256@gmail.com>",
     "buildNpmdoc": "easyimage",
-    "description": "api documentation for  [easyimage (v2.1.0)](https://github.com/hacksparrow/node-easyimage)  [![npm package](https://img.shields.io/npm/v/npmdoc-easyimage.svg?style=flat-square)](https://www.npmjs.org/package/npmdoc-easyimage) [![travis-ci.org build-status](https://api.travis-ci.org/npmdoc/node-npmdoc-easyimage.svg)](https://travis-ci.org/npmdoc/node-npmdoc-easyimage)",
+    "description": "#### basic api documentation for  [easyimage (v2.1.0)](https://github.com/hacksparrow/node-easyimage)  [![npm package](https://img.shields.io/npm/v/npmdoc-easyimage.svg?style=flat-square)](https://www.npmjs.org/package/npmdoc-easyimage) [![travis-ci.org build-status](https://api.travis-ci.org/npmdoc/node-npmdoc-easyimage.svg)](https://travis-ci.org/npmdoc/node-npmdoc-easyimage)",
     "devDependencies": {
         "easyimage": "*",
         "electron-lite": "kaizhu256/node-electron-lite#alpha",
@@ -36,5 +36,5 @@
         "start": "(set -e; export PORT=${PORT:-8080}; utility2 start test.js)",
         "test": "(set -e; export PORT=$(utility2 shServerPortRandom); utility2 test test.js)"
     },
-    "version": "0.0.2"
+    "version": "2017.4.25"
 }

@@ -1,6 +1,7 @@
 # npmdoc-easyimage
 
-api documentation for  [easyimage (v2.1.0)](https://github.com/hacksparrow/node-easyimage)  [![npm package](https://img.shields.io/npm/v/npmdoc-easyimage.svg?style=flat-square)](https://www.npmjs.org/package/npmdoc-easyimage) [![travis-ci.org build-status](https://api.travis-ci.org/npmdoc/node-npmdoc-easyimage.svg)](https://travis-ci.org/npmdoc/node-npmdoc-easyimage)
+#### basic api documentation for  [easyimage (v2.1.0)](https://github.com/hacksparrow/node-easyimage)  [![npm package](https://img.shields.io/npm/v/npmdoc-easyimage.svg?style=flat-square)](https://www.npmjs.org/package/npmdoc-easyimage) [![travis-ci.org build-status](https://api.travis-ci.org/npmdoc/node-npmdoc-easyimage.svg)](https://travis-ci.org/npmdoc/node-npmdoc-easyimage)
+
 #### A promise-based, user-friendly module for processing images in Node.js
 
 [![NPM](https://nodei.co/npm/easyimage.png?downloads=true&downloadRank=true&stars=true)](https://www.npmjs.com/package/easyimage)
@@ -72,7 +73,8 @@ api documentation for  [easyimage (v2.1.0)](https://github.com/hacksparrow/node-
     "scripts": {
         "test": "cd test && mocha"
     },
-    "version": "2.1.0"
+    "version": "2.1.0",
+    "bin": {}
 }
 ```
 
